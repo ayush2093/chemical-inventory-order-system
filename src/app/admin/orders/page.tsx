@@ -57,7 +57,7 @@ export default function AdminOrdersPage() {
     fetchOrders();
   }, []);
 
-  const handleUpdateStatus = async (orderId: string, newStatus: 'approved' | 'rejected' | 'completed') => {
+  const handleUpdateStatus = async (orderId: string, newStatus: 'pending' | 'approved' | 'rejected' | 'completed') => {
     setError('');
     setUpdatingId(orderId);
     try {

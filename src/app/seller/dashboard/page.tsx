@@ -428,7 +428,7 @@ export default function SellerDashboard() {
                                 {displayBaseQty}
                               </span>
                             </div>
-                            <div style={styles.auditLine} style={{ marginTop: '4px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '4px' }}>
+                            <div style={{ ...styles.auditLine, marginTop: '4px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '4px' }}>
                               <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Cost Subtotal:</span>
                               <span className="num-cell" style={{ fontWeight: 'bold', color: '#fff', fontSize: '13px' }}>
                                 ₹{total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
