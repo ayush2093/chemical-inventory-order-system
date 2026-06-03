@@ -3,7 +3,7 @@
 A high-precision, real-time chemical inventory and quotation management portal built with **Next.js**, **Prisma ORM (v7.8.0)**, **Neon-hosted PostgreSQL**, and styled with **Vanilla CSS & CSS Modules**.
 
 ## 🚀 Live Demo URL
-Deploy directly to Vercel and set environment variables. Once deployed, the system is fully operational.
+https://chemical-inventory-order-system-5lso2fm5e-ayush-medchem-dev.vercel.app/admin/products
 
 ---
 
