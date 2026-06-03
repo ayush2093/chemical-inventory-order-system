@@ -26,5 +26,8 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.35",
     "typescript": "^5"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\" prisma/seed.ts"
   }
 }
