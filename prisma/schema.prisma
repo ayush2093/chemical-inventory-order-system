@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   // "admin" or "seller"
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  orders       Order[]
+}
+
+model Product {
+  id               String      @id @default(uuid())
+  sku              String      @unique
+  name             String
+  description      String?
+  category         String?
+  dimension        String      // "WEIGHT", "VOLUME", "COUNT"
+  baseUnit         String      // "g", "mL", "items"
+  inventoryBalance Decimal     @db.Decimal(20, 8)
+  basePrice        Decimal     @db.Decimal(15, 4) // base price per 1 base unit
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  orderItems       OrderItem[]
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  status     String      // "pending", "approved", "rejected", "completed"
+  totalPrice Decimal     @db.Decimal(15, 4) // total order price in INR
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  items      OrderItem[]
+}
+
+model OrderItem {
+  id                      String   @id @default(uuid())
+  orderId                 String
+  order                   Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId               String
+  product                 Product  @relation(fields: [productId], references: [id])
+  orderedQuantity         Decimal  @db.Decimal(20, 8) // input quantity by seller (e.g. 2.5)
+  orderedUnit             String   // unit selected by seller (e.g. "kg")
+  quantityInBaseUnit      Decimal  @db.Decimal(20, 8) // converted quantity in base unit (e.g. 2500)
+  unitPriceInOrderedUnit  Decimal  @db.Decimal(15, 4) // price per 1 unit of orderedUnit (e.g. 5000)
+  totalItemPrice          Decimal  @db.Decimal(15, 4) // total cost for this item (orderedQuantity * unitPriceInOrderedUnit)
+  createdAt               DateTime @default(now())
+}
